@@ -1,0 +1,55 @@
+- name: install necessary packages for jupyter
+  apt:
+    pkg: 
+    - python3
+    - python3-pip
+    - npm
+    state: present
+    update_cache: true
+  tags:
+  - install
+
+- name: install necessary python packages
+  shell: python3 -m pip install jupyterhub jupyterlab notebook
+  tags: 
+  - install
+
+- name: install necessary npm packages
+  shell: npm install -g configurable-http-proxy
+  tags:
+  - install
+
+- name: copy service file
+  copy:
+    src: jupyterhub.service
+    dest: /etc/systemd/system/
+  tags:
+  - install
+
+- name: Make sure a service unit is running
+  systemd:
+    daemon_reload: true
+    state: started
+    name: jupyterhub
+    enabled: true
+  tags:
+  - install
+
+- name: add users for instance
+  loop: "{{ jupyter_users }}"
+  user:
+    name: "{{item.name}}"
+    password: "{{item.pass | password_hash('sha512')}}"
+
+- name: check if reboot required
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_file
+  tags:
+  - install
+
+- name: reboot if needed
+  reboot:
+  when: reboot_file.stat.exists
+  tags:
+  - install
