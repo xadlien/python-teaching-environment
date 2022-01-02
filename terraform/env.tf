@@ -45,7 +45,7 @@ resource "digitalocean_floating_ip_assignment" "dev_ip_assignment" {
 
 # create firewall
 resource "digitalocean_firewall" "jupyterhub_firewall" {
-  name = "jupyterhub_firewall"
+  name = "jupyterhub-firewall"
 
   droplet_ids = [digitalocean_droplet.jupyterhubdev.id]
 
