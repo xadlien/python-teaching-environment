@@ -43,6 +43,25 @@ resource "digitalocean_floating_ip_assignment" "dev_ip_assignment" {
   droplet_id = digitalocean_droplet.jupyterhubdev.id
 }
 
+# create firewall
+resource "digitalocean_firewall" "jupyterhub_firewall" {
+  name = "jupyterhub_firewall"
+
+  droplet_ids = [digitalocean_droplet.jupyterhubdev.id]
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "22"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+
+  inbound_rule {
+    protocol         = "tcp"
+    port_range       = "8000"
+    source_addresses = ["0.0.0.0/0", "::/0"]
+  }
+}
+
 # output ipv4 address
 output "dev_instance_ip_addr" {
   value = digitalocean_droplet.jupyterhubdev.ipv4_address
