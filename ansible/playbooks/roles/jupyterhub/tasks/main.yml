@@ -19,6 +19,13 @@
   tags:
   - install
 
+- name: generate self signed certs
+  openssl_certificate:
+    path: /etc/ssl/crt/jupyterhub.crt
+    privatekey_path: /etc/ssl/private/jupyterhub.pem
+    csr_path: /etc/ssl/csr/jupyterhub.csr
+    provider: selfsigned
+
 - name: copy service file
   copy:
     src: jupyterhub.service
