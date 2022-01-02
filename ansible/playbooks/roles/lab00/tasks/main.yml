@@ -1,0 +1,8 @@
+- name: copy lab files to users
+  copy:
+    src: lab00
+    dest: "/home/{{item.name}}/"
+    owner: "{{item.name}}"
+  loop: "{{user_list | default(jupyter_users)}}"
+  tags:
+  - lab00
