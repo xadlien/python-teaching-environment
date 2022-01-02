@@ -1,5 +1,5 @@
 [jupyterhubdev]
-164.90.132.208
+144.126.248.190
 
 [jupyterhub:children]
 jupyterhubdev

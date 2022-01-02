@@ -19,11 +19,21 @@
   tags:
   - install
 
+- name: generate private key
+  community.crypto.openssl_privatekey:
+    path: /etc/ssl/private/jupyterhub.pem
+
+- name: generate csr
+  community.crypto.openssl_csr:
+    path: /etc/ssl/certs/jupyterhub.csr
+    privatekey_path: /etc/ssl/private/jupyterhub.pem
+#    common_name: www.ansible.com
+
 - name: generate self signed certs
   openssl_certificate:
-    path: /etc/ssl/crt/jupyterhub.crt
+    path: /etc/ssl/certs/jupyterhub.crt
     privatekey_path: /etc/ssl/private/jupyterhub.pem
-    csr_path: /etc/ssl/csr/jupyterhub.csr
+    csr_path: /etc/ssl/certs/jupyterhub.csr
     provider: selfsigned
 
 - name: copy service file
@@ -36,7 +46,7 @@
 - name: Make sure a service unit is running
   systemd:
     daemon_reload: true
-    state: started
+    state: restarted
     name: jupyterhub
     enabled: true
   tags:

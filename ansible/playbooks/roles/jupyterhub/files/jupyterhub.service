@@ -4,7 +4,7 @@ After=syslog.target network.target
 
 [Service]
 User=root
-ExecStart=/usr/local/bin/jupyterhub
+ExecStart=/usr/local/bin/jupyterhub --ssl-key=/etc/ssl/private/jupyterhub.pem --ssl-cert=/etc/ssl/certs/jupyterhub.crt
 
 Restart=on-failure
 RestartSec=10
