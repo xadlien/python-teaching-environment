@@ -1,6 +1,6 @@
 # Python Teaching Environment
 ## Description
-This repository holds the necessary code to initialize a python teaching environment in digital ocean. 
+This repository holds the necessary code to initialize a python teaching environment in digital ocean. *I take no responsibility for any costs associated with this code. You will be billed for usage of digital ocean cloud.*
 ## Setup
 ### Update Some Values
 There are two things that need to be checked before running.
@@ -33,3 +33,12 @@ Each lab is a role in ansible. To copy run the lab playbook with the necessary a
 ```
 ansible-playbook -i development playbooks/lab.yml -e '{"lab": "lab00", "target": "jupyterhubdev"}' -u root --ask-vault-pass
 ```
+## Cleanup
+You will need to destroy the environment to stop being billed for the infrastructure. Run the following from the respository:
+```
+cd terraform
+terraform destroy
+cd network
+terraform destroy
+```
+This will clean up all objects created in digital ocean.
