@@ -1,6 +1,6 @@
 # Python Teaching Environment
 ## Description
-This repository holds the necessary code to initialize a python teaching environment in digital ocean. More work needs to be done to have ansible distribute class files.
+This repository holds the necessary code to initialize a python teaching environment in digital ocean. 
 ## Setup
 ### Update Some Values
 There are two things that need to be checked before running.
@@ -27,4 +27,9 @@ cd ..
 ```
 cd ansible
 ansible-playbook -u root -i development playbooks/jupyterhub.yml --ask-vault-pass
+```
+## Copying Lab Files for Students
+Each lab is a role in ansible. To copy run the lab playbook with the necessary arguments.
+```
+ansible-playbook -i development playbooks/lab.yml -e '{"lab": "lab00", "target": "jupyterhubdev"}' -u root --ask-vault-pass
 ```
