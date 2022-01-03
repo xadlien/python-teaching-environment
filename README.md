@@ -1,6 +1,6 @@
 # Python Teaching Environment
 ## Description
-This repository holds the necessary code to initialize a python teaching environment in digital ocean. *I take no responsibility for any costs associated with this code. You will be billed for usage of digital ocean cloud.*
+This repository holds the necessary code to initialize a python teaching environment in digital ocean. **I take no responsibility for any costs associated with this code. You will be billed for usage of digital ocean cloud.**
 ## Setup
 ### Update Some Values
 There are two things that need to be checked before running.
